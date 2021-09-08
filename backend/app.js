@@ -3,17 +3,19 @@ const port = process.env.PORT || 8000;
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const mongoUri = process.env.MONGO_URI;
 const router = require('./routes/user');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
-// need to setup mongo uri and check for connection
-main().catch(err => console.log(err));
+mongoose.connect(mongoUri, { useUnifiedTopology: true, useNewUrlParser: true });
 
-async function main() {
-    await mongoose.connect('mongodb://localhost:27017/test');
-    console.log("database connected")
-}
+// check for proper connection
+const database = mongoose.connection;
+database.on('error', console.error.bind(console, 'connection error: '));
+database.once('open', () => {
+    console.log('mongo database connected')
+});
 
 app.use('/', router);
 app.use(cookieParser());
