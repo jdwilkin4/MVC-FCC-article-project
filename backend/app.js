@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const mongoUri = process.env.MONGO_URI;
-const router = require('./routes/user');
+const users = require('./routes/user');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
@@ -17,9 +17,14 @@ database.once('open', () => {
     console.log('mongo database connected')
 });
 
-app.use('/', router);
+
+//middleware
 app.use(cookieParser());
 app.use(cors());
+app.use(express.json());
+
+//routes
+app.use(users);
 
 
 app.listen(port, () => {
