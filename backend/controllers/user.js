@@ -1,9 +1,13 @@
-const express = require('express');
-const router = express.Router();
+const Coach = require('../models/coach');
 
+exports.coachSignup = (req, res) => {
+    console.log('req.body', req.body)
+    const coach = new Coach(req.body)
 
-router.get('/', (req, res) => {
-    res.send('created new API')
-});
-
-module.exports = router
+    coach.save((err, user) => {
+        if (err) {
+            return console.error(err, "bad gateway")
+        }
+        res.json(user)
+    })
+}
