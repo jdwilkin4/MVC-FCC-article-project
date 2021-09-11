@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 
+//todo:create columns for completed applications, and tests
+
 const CoachTable = () => {
   const [coachData, setCoachData] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      let response = await fetch('http://localhost:8000/signup')
-      response = await response.json()
-      setCoachData(response)
+      const response = await fetch('http://localhost:8000/signup')
+      const json = await response.json()
+      setCoachData(json)
+
       if (error) {
         console.log(`There was a connection error: ${error}`)
         setError(error)
@@ -17,6 +20,7 @@ const CoachTable = () => {
     fetchData()
   }, [])
   console.log(coachData)
+
   return (
     <>
       <h1>Welcome back, Office manager!</h1>
@@ -27,21 +31,25 @@ const CoachTable = () => {
             <th>Name</th>
             <th>Email</th>
             <th>Program</th>
-            <th>Application</th>
-            <th>Background Check</th>
-            <th>TB test</th>
-            <th>Covid Test</th>
           </tr>
         </thead>
         <tbody>
           {error ?
             (<><p>There was an error loading your data.</p></>)
             :
-            (<> Database is connected </>)
-
+            (<>
+              {
+                coachData.map(data => (
+                  <tr key={data._id}>
+                    <td>{data.name}</td>
+                    <td>{data.email}</td>
+                    <td>{data.program}</td>
+                  </tr>
+                ))
+              }
+            </>)
           }
         </tbody>
-
       </table>
 
     </>
