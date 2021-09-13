@@ -1,21 +1,33 @@
-const cardDimensions = { width: '300px', height: '30%' };
+const cardDimensions = {
+    width: '300px',
+    height: '250px'
+};
 const btnText = 'Send reminder email';
+const btnStyles = {
+    backgroundColor: '#008000',
+    cursor: 'pointer',
+    marginTop: '10px',
+    color: 'white',
+}
+
 
 const CardTemplate = (props) => {
+
     return (
         <div className="card" style={cardDimensions}>
-            <div className="card-content">
-                <h3 className="has-background-info	has-text-white	is-size-4 has-text-centered">{props.name}</h3>
+            <h3 className="has-background-info	has-text-white	is-size-4 has-text-centered">{props.name}</h3>
+            <div style={{ marginTop: '10px' }}>
                 {props.arr.map((app, index) => (
-                    <div className="is-flex is-flex-wrap-wrap	is-justify-content-center">
-                        <p key={index}>{app.name}</p>
+                    <div key={index} className="is-flex is-flex-wrap-wrap is-justify-content-center">
+                        <p >{app.name}</p>
                     </div>
                 ))}
-                <div class="has-text-centered">
-                    <button className="button is-info " style={{ cursor: 'pointer', marginTop: '10px' }}>{btnText}</button>
+                <div className="has-text-centered">
+                    <button onClick={props.messageFunction} className="button" style={btnStyles}>{btnText}</button>
                 </div>
             </div>
-        </div>
+
+        </div >
     )
 }
 export default CardTemplate;

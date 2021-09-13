@@ -5,16 +5,9 @@ const CoachTable = () => {
   const [coachData, setCoachData] = useState([]);
   const [error, setError] = useState(null);
 
-
-  //these filter arrays represent coaches who haven't completed these materials
-  const applicationsArr = coachData.filter(app => !app.application);
-  const tbTestsArr = coachData.filter(test => !test.tbTest);
-  const backgroundChecksArr = coachData.filter(check => !check.backgroundCheck);
-  const covidTestArr = coachData.filter(covid => !covid.covidTest);
-
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('http://localhost:8000/signup')
+      const response = await fetch('http://localhost:8000/coaches')
       const json = await response.json()
       setCoachData(json)
 
@@ -26,6 +19,22 @@ const CoachTable = () => {
     fetchData()
   }, [])
   console.log(coachData)
+
+
+  const missingApplicationsArr = coachData.filter(app => !app.application);
+  const missingTbTestsArr = coachData.filter(test => !test.tbTest);
+  const missingBackgroundChecksArr = coachData.filter(check => !check.backgroundCheck);
+  const missingCovidTestArr = coachData.filter(covid => !covid.covidTest);
+
+  const applicationEmails = missingApplicationsArr.map(coach => coach.email);
+  const tbTests = missingTbTestsArr.map(coach => coach.email);
+  const backgroundTests = missingBackgroundChecksArr.map(coach => coach.email);
+  const covidTests = missingCovidTestArr.map(coach => coach.email);
+
+  //create a generic message that the email was sent
+  const handleMessageClick = () => {
+    alert(`Your message was sent to ${applicationEmails}`)
+  }
 
   return (
     <>
@@ -61,10 +70,10 @@ const CoachTable = () => {
 
       <h2 className="is-size-3 has-text-centered">Missing documents</h2>
       <div className="is-flex is-flex-wrap-wrap	is-justify-content-center">
-        <CardTemplate name="Applications" arr={applicationsArr} />
-        <CardTemplate name="TB tests" arr={tbTestsArr} />
-        <CardTemplate name="Covid Tests" arr={covidTestArr} />
-        <CardTemplate name="Background Checks" arr={backgroundChecksArr} />
+        <CardTemplate messageFunction={handleMessageClick} name="Applications" arr={missingApplicationsArr} />
+        <CardTemplate name="TB tests" arr={missingTbTestsArr} />
+        <CardTemplate name="Covid Tests" arr={missingCovidTestArr} />
+        <CardTemplate name="Background Checks" arr={missingBackgroundChecksArr} />
       </div>
     </>
   )

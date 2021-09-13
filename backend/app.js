@@ -4,7 +4,8 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const mongoUri = process.env.MONGO_URI;
-const users = require('./routes/user');
+const users = require('./routes/coach');
+const applications = require('./routes/applications');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
@@ -22,9 +23,11 @@ database.once('open', () => {
 app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
 
 //routes
 app.use(users);
+app.use(applications);
 
 
 app.listen(port, () => {
