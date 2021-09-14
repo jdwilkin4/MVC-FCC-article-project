@@ -1,5 +1,5 @@
 const cardDimensions = {
-    width: '40%',
+    width: '300px',
     height: '250px'
 };
 const btnText = 'Send reminder email';
