@@ -31,9 +31,16 @@ const CoachTable = () => {
   const backgroundTests = missingBackgroundChecksArr.map(coach => coach.email);
   const covidTests = missingCovidTestArr.map(coach => coach.email);
 
-  //create a generic message that the email was sent
-  const handleMessageClick = () => {
-    alert(`Your message was sent to ${applicationEmails}`)
+
+  const emailMissingApplications = async () => {
+    console.log(applicationEmails)
+    alert(`Your email was sent to ${applicationEmails}`)
+    const response = await fetch("http://localhost:8000/applications", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(applicationEmails),
+    })
+      .then(res => res.json())
   }
 
   return (
@@ -70,7 +77,7 @@ const CoachTable = () => {
 
       <h2 className="is-size-3 has-text-centered">Missing documents</h2>
       <div className="is-flex is-flex-wrap-wrap	is-justify-content-center">
-        <CardTemplate messageFunction={handleMessageClick} name="Applications" arr={missingApplicationsArr} />
+        <CardTemplate messageFunction={emailMissingApplications} name="Applications" arr={missingApplicationsArr} />
         <CardTemplate name="TB tests" arr={missingTbTestsArr} />
         <CardTemplate name="Covid Tests" arr={missingCovidTestArr} />
         <CardTemplate name="Background Checks" arr={missingBackgroundChecksArr} />

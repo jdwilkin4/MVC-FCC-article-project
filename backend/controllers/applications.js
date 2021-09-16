@@ -25,19 +25,19 @@ transporter.verify((err, success) => {
 exports.applications = (req, res) => {
     let mailOptions = {
         from: email,
-        to: "jwilkin4@hotmail.com",
+        to: `${req.body.applicationEmails}`,
+        cc: email,
         subject: "Please Complete your application",
         text: "Our records show that you have not completed your application. You need to complete it to start coaching.",
     }
 
-    transporter.sendMail(mailOptions, (err, data) => {
+    transporter.sendMail(mailOptions, (err) => {
         if (err) {
             console.log(`There was an error sending the message: ${err}`)
             res.json({ status: 'Email failure' })
         } else {
             console.log(`Success: Email was sent`)
             res.json({ status: "Email sent" });
-
         }
     })
     console.log(`this is an application post:`)
