@@ -16,26 +16,26 @@ let transporter = nodeMailer.createTransport({
 
 transporter.verify((err, success) => {
     if (err) {
-        console.log(`Applications: There was an error verifying the email: ${err}`)
+        console.log(`Background Checks: There was an error verifying the email: ${err}`)
     } else {
-        console.log(`Applications: Success: ${success}`)
+        console.log(`Background Checks: Success: ${success}`)
     }
 })
-exports.applications = (req, res) => {
+exports.backgroundChecks = (req, res) => {
     let mailOptions = {
         from: email,
-        to: `${req.body.applicationEmails}`,
+        to: `${req.body.backgroundTestsEmails}`,
         cc: email,
-        subject: "Please Complete your application",
-        text: "Our records show that you have not completed your application. You need to complete it to start coaching.",
+        subject: "Please Complete your Background Check",
+        text: "Our records show that you have not done your background check. You need to complete it to start coaching.",
     }
 
     transporter.sendMail(mailOptions, (err) => {
         if (err) {
-            console.log(`Applications: There was an error sending the message: ${err}`)
+            console.log(`Background Checks: There was an error sending the message: ${err}`)
             res.json({ status: 'Email failure' })
         } else {
-            console.log(`Applications: Success: Email was sent`)
+            console.log(`Background Checks: Success: Email was sent`)
             res.json({ status: "Email sent" });
         }
     })

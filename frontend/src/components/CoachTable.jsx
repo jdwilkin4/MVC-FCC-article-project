@@ -27,9 +27,9 @@ const CoachTable = () => {
   const missingCovidTestArr = coachData.filter(covid => !covid.covidTest);
 
   const applicationEmails = missingApplicationsArr.map(coach => coach.email);
-  const tbTests = missingTbTestsArr.map(coach => coach.email);
-  const backgroundTests = missingBackgroundChecksArr.map(coach => coach.email);
-  const covidTests = missingCovidTestArr.map(coach => coach.email);
+  const tbTestsEmails = missingTbTestsArr.map(coach => coach.email);
+  const backgroundTestsEmails = missingBackgroundChecksArr.map(coach => coach.email);
+  const covidTestsEmails = missingCovidTestArr.map(coach => coach.email);
 
   const sendEmail = async (endpoint, emails) => {
     console.log(emails)
@@ -77,9 +77,9 @@ const CoachTable = () => {
       <h2 className="is-size-3 has-text-centered">Missing documents</h2>
       <div className="is-flex is-flex-wrap-wrap	is-justify-content-center">
         <CardTemplate messageFunction={() => sendEmail('applications', applicationEmails)} name="Applications" arr={missingApplicationsArr} />
-        <CardTemplate name="TB tests" arr={missingTbTestsArr} />
-        <CardTemplate name="Covid Tests" arr={missingCovidTestArr} />
-        <CardTemplate name="Background Checks" arr={missingBackgroundChecksArr} />
+        <CardTemplate messageFunction={() => sendEmail('tbtests', tbTestsEmails)} name="TB tests" arr={missingTbTestsArr} />
+        <CardTemplate messageFunction={() => sendEmail('covidtests', covidTestsEmails)} name="Covid Tests" arr={missingCovidTestArr} />
+        <CardTemplate messageFunction={() => sendEmail('backgroundchecks', backgroundTestsEmails)} name="Background Checks" arr={missingBackgroundChecksArr} />
       </div>
     </>
   )

@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 const mongoUri = process.env.MONGO_URI;
 const users = require('./routes/coach');
 const applications = require('./routes/applications');
+const backgroundChecks = require('./routes/background-checks');
+const covidTests = require('./routes/covid-tests');
+const tbTests = require('./routes/tb-tests');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
@@ -28,6 +31,9 @@ app.use(express.urlencoded({ extended: false }))
 //routes
 app.use(users);
 app.use(applications);
+app.use(backgroundChecks);
+app.use(covidTests);
+app.use(tbTests);
 
 
 app.listen(port, () => {
