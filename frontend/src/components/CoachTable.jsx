@@ -44,7 +44,7 @@ const CoachTable = () => {
 
   return (
     <>
-      <h1 className="is-size-1 has-text-centered">Welcome back, Office manager!</h1>
+      <h1 className="is-size-1 has-text-centered">Hello, Office manager!</h1>
       <h2 className="is-size-3 has-text-centered">Recently hired coaches</h2>
 
       <table className="table is-fullwidth">
