@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import CardTemplate from "./CardTemplate";
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const CoachTable = () => {
   const [coachData, setCoachData] = useState([]);
@@ -31,9 +34,10 @@ const CoachTable = () => {
   const backgroundTestsEmails = missingBackgroundChecksArr.map(coach => coach.email);
   const covidTestsEmails = missingCovidTestArr.map(coach => coach.email);
 
-  const sendEmail = async (endpoint, emails) => {
-    console.log(emails)
-    alert(`Your email was sent to ${emails}`)
+  const sendEmail = async (endpoint, emails, message) => {
+    const notify = () => toast(`Reminder email for ${message} was sent!`);
+    notify()
+
     await fetch(`http://localhost:8000/${endpoint}`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
@@ -76,15 +80,16 @@ const CoachTable = () => {
 
       <h2 className="is-size-3 has-text-centered">Missing documents</h2>
       <div className="is-flex is-flex-wrap-wrap	is-justify-content-center">
-        <CardTemplate messageFunction={() => sendEmail('applications', applicationEmails)} name="Applications" arr={missingApplicationsArr} />
-        <CardTemplate messageFunction={() => sendEmail('tbtests', tbTestsEmails)} name="TB tests" arr={missingTbTestsArr} />
-        <CardTemplate messageFunction={() => sendEmail('covidtests', covidTestsEmails)} name="Covid Tests" arr={missingCovidTestArr} />
-        <CardTemplate messageFunction={() => sendEmail('backgroundchecks', backgroundTestsEmails)} name="Background Checks" arr={missingBackgroundChecksArr} />
+        <CardTemplate messageFunction={() => sendEmail('applications', applicationEmails, "Missing Application")} name="Applications" arr={missingApplicationsArr} />
+        <CardTemplate messageFunction={() => sendEmail('tbtests', tbTestsEmails, "Missing TB test")} name="TB tests" arr={missingTbTestsArr} />
+        <CardTemplate messageFunction={() => sendEmail('covidtests', covidTestsEmails, "Missing Covid Vaccine")} name="Covid Tests" arr={missingCovidTestArr} />
+        <CardTemplate messageFunction={() => sendEmail('backgroundchecks', backgroundTestsEmails, "Missing Background Check")} name="Background Checks" arr={missingBackgroundChecksArr} />
+        <ToastContainer style={{ fontSize: '1.4rem' }} position="top-center" />
       </div>
     </>
   )
 }
 
 
-export default CoachTable
+export default CoachTable;
 
