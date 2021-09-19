@@ -34,7 +34,7 @@ const CoachTable = () => {
   const sendEmail = async (endpoint, emails) => {
     console.log(emails)
     alert(`Your email was sent to ${emails}`)
-    const response = await fetch(`http://localhost:8000/${endpoint}`, {
+    await fetch(`http://localhost:8000/${endpoint}`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(emails),
