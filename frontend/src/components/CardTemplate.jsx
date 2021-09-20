@@ -26,7 +26,6 @@ const CardTemplate = (props) => {
                     <button onClick={props.messageFunction} className="button" style={btnStyles}>{btnText}</button>
                 </div>
             </div>
-
         </div >
     )
 }
