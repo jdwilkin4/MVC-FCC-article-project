@@ -5,7 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const h2Styles = "is-size-3 has-text-centered";
 const whiteText = "has-text-white";
-//keep working on fixing fetch errors
 
 const CoachTable = () => {
   const [coachData, setCoachData] = useState([]);
@@ -13,7 +12,7 @@ const CoachTable = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('/coaches')
+      const response = await fetch('https://mvc-project-backend.herokuapp.com/coaches')
       const json = await response.json()
       setCoachData(json)
 
@@ -42,7 +41,7 @@ const CoachTable = () => {
     const failureMsg = 'Your email failed to send. Please try again.';
     const successMsg = `Reminder email for ${message} was sent!`;
 
-    await fetch(`/${endpoint}`, {
+    await fetch(`https://mvc-project-backend.herokuapp.com/${endpoint}`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(emails),
