@@ -1,6 +1,7 @@
 require('dotenv').config();
 const port = process.env.PORT || 8000;
 const express = require('express');
+const path = require('path');
 const app = express();
 const mongoose = require('mongoose');
 const mongoUri = process.env.MONGO_URI;
@@ -35,11 +36,11 @@ app.use(backgroundChecks);
 app.use(covidTests);
 app.use(tbTests);
 
-//grab correct build folder
-/* app.use(express.static(path.join(__dirname, '../build')))
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build'))
-}) */
+app.use(express.static(path.join(__dirname, 'frontend/build')));
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'frontend/build', 'frontend/build/index.html'));
+});
 
 app.listen(port, () => {
     console.log(`Backend server started at port: ${port}`)

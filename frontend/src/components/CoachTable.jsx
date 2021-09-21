@@ -23,7 +23,7 @@ const CoachTable = () => {
       }
     }
     fetchData()
-  }, [])
+  }, [error])
 
 
   // this is the array of names lists in the coach cards
@@ -47,7 +47,6 @@ const CoachTable = () => {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(emails),
     })
-      .then(res => res.json())
       .then(() => toast(successMsg))
       .catch(() => toast(failureMsg))
   }
