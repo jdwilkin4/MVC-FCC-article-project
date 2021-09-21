@@ -35,8 +35,13 @@ app.use(backgroundChecks);
 app.use(covidTests);
 app.use(tbTests);
 
+//grab correct build folder
+/* app.use(express.static(path.join(__dirname, '../build')))
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build'))
+}) */
 
 app.listen(port, () => {
-    console.log(`Listening at http://localhost:${port}`)
+    console.log(`Backend server started at port: ${port}`)
 });
 

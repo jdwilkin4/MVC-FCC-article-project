@@ -13,7 +13,7 @@ const CoachTable = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('http://localhost:8000/coaches')
+      const response = await fetch('/coaches')
       const json = await response.json()
       setCoachData(json)
 
@@ -39,15 +39,17 @@ const CoachTable = () => {
   const covidTestsEmails = missingCovidTestArr.map(coach => coach.email);
 
   const sendEmail = async (endpoint, emails, message) => {
-    const notify = () => toast(`Reminder email for ${message} was sent!`);
-    notify()
+    const failureMsg = 'Your email failed to send. Please try again.';
+    const successMsg = `Reminder email for ${message} was sent!`;
 
-    await fetch(`http://localhost:8000/${endpoint}`, {
+    await fetch(`/${endpoint}`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(emails),
     })
       .then(res => res.json())
+      .then(() => toast(successMsg))
+      .catch(() => toast(failureMsg))
   }
 
   return (
