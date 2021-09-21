@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const h2Styles = "is-size-3 has-text-centered";
 const whiteText = "has-text-white";
-
+//keep working on fixing fetch errors
 
 const CoachTable = () => {
   const [coachData, setCoachData] = useState([]);
