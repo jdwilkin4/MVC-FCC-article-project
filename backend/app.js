@@ -36,10 +36,10 @@ app.use(backgroundChecks);
 app.use(covidTests);
 app.use(tbTests);
 
-app.use(express.static(path.join(__dirname, 'frontend/build')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'frontend/build', 'frontend/build/index.html'));
+    res.sendFile(path.join(__dirname, 'build', 'build/index.html'));
 });
 
 app.listen(port, () => {
