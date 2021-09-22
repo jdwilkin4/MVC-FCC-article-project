@@ -1,5 +1,5 @@
-import WelcomePage from './components/WelcomePage';
+import CoachTable from './components/CoachTable';
 
-const App = () => <WelcomePage />
+const App = () => <CoachTable />
 
 export default App;

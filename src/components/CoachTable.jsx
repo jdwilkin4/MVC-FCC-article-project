@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import CardTemplate from "./CardTemplate";
+import FadeIn from 'react-fade-in';
+import WelcomePage from './WelcomePage.jsx'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import FadeIn from 'react-fade-in';
 
-
-const h2Styles = "is-size-3 has-text-centered";
-const whiteText = "has-text-white";
 
 const CoachTable = () => {
   const [coachData, setCoachData] = useState([]);
   const [error, setError] = useState(null);
+  const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
+  const showDashboard = () => setShowWelcomeMessage(false);
+  const h2Styles = "is-size-3 has-text-centered";
+  const whiteText = "has-text-white";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,45 +56,52 @@ const CoachTable = () => {
 
   return (
     <>
-      <FadeIn delay={500}>
-        <h2 className={h2Styles}>Recently hired coaches</h2>
+      {showWelcomeMessage ?
+        <WelcomePage showDashboard={showDashboard} />
+        :
+        <>
+          <FadeIn delay={500}>
+            <h2 className={h2Styles}>Recently hired coaches</h2>
 
-        <table className="table is-fullwidth">
-          <thead>
-            <tr className="has-background-info" >
-              <th className={whiteText}>Name</th>
-              <th className={whiteText}>Email</th>
-              <th className={whiteText}>Program</th>
-            </tr>
-          </thead>
-          <tbody>
-            {error ?
-              (<><p>There was an error loading your data.</p></>)
-              :
-              (<>
-                {
-                  coachData.map(data => (
-                    <tr key={data._id}>
-                      <td>{data.name}</td>
-                      <td>{data.email}</td>
-                      <td>{data.program}</td>
-                    </tr>
-                  ))
+            <table className="table is-fullwidth">
+              <thead>
+                <tr className="has-background-info" >
+                  <th className={whiteText}>Name</th>
+                  <th className={whiteText}>Email</th>
+                  <th className={whiteText}>Program</th>
+                </tr>
+              </thead>
+              <tbody>
+                {error ?
+                  (<><p>There was an error loading your data.</p></>)
+                  :
+                  (<>
+                    {
+                      coachData.map(data => (
+                        <tr key={data._id}>
+                          <td>{data.name}</td>
+                          <td>{data.email}</td>
+                          <td>{data.program}</td>
+                        </tr>
+                      ))
+                    }
+                  </>)
                 }
-              </>)
-            }
-          </tbody>
-        </table>
+              </tbody>
+            </table>
 
-        <h2 className={h2Styles}>Missing documents</h2>
-        <div className="is-flex is-flex-wrap-wrap	is-justify-content-center">
-          <CardTemplate messageFunction={() => sendEmail('applications', applicationEmails, "Missing Application")} name="Applications" arr={missingApplicationsArr} />
-          <CardTemplate messageFunction={() => sendEmail('tbtests', tbTestsEmails, "Missing TB test")} name="TB tests" arr={missingTbTestsArr} />
-          <CardTemplate messageFunction={() => sendEmail('covidtests', covidTestsEmails, "Missing Covid Vaccine")} name="Covid Tests" arr={missingCovidTestArr} />
-          <CardTemplate messageFunction={() => sendEmail('backgroundchecks', backgroundTestsEmails, "Missing Background Check")} name="Background Checks" arr={missingBackgroundChecksArr} />
-          <ToastContainer style={{ fontSize: '1.4rem' }} position="top-center" />
-        </div>
-      </FadeIn>
+            <h2 className={h2Styles}>Missing documents</h2>
+            <div className="is-flex is-flex-wrap-wrap	is-justify-content-center">
+              <CardTemplate messageFunction={() => sendEmail('applications', applicationEmails, "Missing Application")} name="Applications" arr={missingApplicationsArr} />
+              <CardTemplate messageFunction={() => sendEmail('tbtests', tbTestsEmails, "Missing TB test")} name="TB tests" arr={missingTbTestsArr} />
+              <CardTemplate messageFunction={() => sendEmail('covidtests', covidTestsEmails, "Missing Covid Vaccine")} name="Covid Tests" arr={missingCovidTestArr} />
+              <CardTemplate messageFunction={() => sendEmail('backgroundchecks', backgroundTestsEmails, "Missing Background Check")} name="Background Checks" arr={missingBackgroundChecksArr} />
+              <ToastContainer style={{ fontSize: '1.4rem' }} position="top-center" />
+            </div>
+          </FadeIn>
+        </>
+      }
+
     </>
   )
 }
