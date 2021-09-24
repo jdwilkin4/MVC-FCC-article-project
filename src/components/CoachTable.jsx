@@ -8,6 +8,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const CoachTable = () => {
   const [coachData, setCoachData] = useState([]);
+  const [missingApps, setMissingApps] = useState([]);
+  const [missingTBTests, setMissingTBTests] = useState([]);
+  const [missingBackgroundChecks, setMissingBackgroundChecks] = useState([]);
+  const [missingCovidTests, setMissingCovidTests] = useState([]);
   const [error, setError] = useState(null);
   const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
   const showDashboard = () => setShowWelcomeMessage(false);
@@ -16,9 +20,20 @@ const CoachTable = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('https://mvc-project-backend.herokuapp.com/coaches')
-      const json = await response.json()
-      setCoachData(json)
+      const allCoaches = await fetch('https://mvc-project-backend.herokuapp.com/coaches')
+      setCoachData(await allCoaches.json())
+
+      const missingApplications = await fetch('https://mvc-project-backend.herokuapp.com/missingapps')
+      setMissingApps(await missingApplications.json())
+
+      const missingCovid = await fetch('https://mvc-project-backend.herokuapp.com/missingcovid')
+      setMissingCovidTests(await missingCovid.json())
+
+      const missingTB = await fetch('https://mvc-project-backend.herokuapp.com/missingtb')
+      setMissingTBTests(await missingTB.json())
+
+      const missingBackground = await fetch('https://mvc-project-backend.herokuapp.com/missingbackground')
+      setMissingBackgroundChecks(await missingBackground.json())
 
       if (error) {
         console.log(`There was a connection error: ${error}`)
@@ -29,21 +44,16 @@ const CoachTable = () => {
   }, [error])
 
 
-  // this is the array of names lists in the coach cards
-  const missingApplicationsArr = coachData.filter(app => !app.application);
-  const missingTbTestsArr = coachData.filter(test => !test.tbTest);
-  const missingBackgroundChecksArr = coachData.filter(check => !check.backgroundCheck);
-  const missingCovidTestArr = coachData.filter(covid => !covid.covidTest);
-
   //this is the list of emails sent to the backend
-  const applicationEmails = missingApplicationsArr.map(coach => coach.email);
-  const tbTestsEmails = missingTbTestsArr.map(coach => coach.email);
-  const backgroundTestsEmails = missingBackgroundChecksArr.map(coach => coach.email);
-  const covidTestsEmails = missingCovidTestArr.map(coach => coach.email);
+  const applicationEmails = missingApps.map(coach => coach.email);
+  const tbTestsEmails = missingTBTests.map(coach => coach.email);
+  const backgroundTestsEmails = missingBackgroundChecks.map(coach => coach.email);
+  const covidTestsEmails = missingCovidTests.map(coach => coach.email);
 
   const sendEmail = async (endpoint, emails, message) => {
-    const failureMsg = 'Your email failed to send. Please try again.';
+    const failureMsg = 'Your email failed to send.';
     const successMsg = `Reminder email for ${message} was sent!`;
+
 
     await fetch(`https://mvc-project-backend.herokuapp.com/${endpoint}`, {
       method: "POST",
@@ -92,10 +102,10 @@ const CoachTable = () => {
 
             <h2 className={h2Styles}>Missing documents</h2>
             <div className="is-flex is-flex-wrap-wrap	is-justify-content-center">
-              <CardTemplate messageFunction={() => sendEmail('applications', applicationEmails, "Missing Application")} name="Applications" arr={missingApplicationsArr} />
-              <CardTemplate messageFunction={() => sendEmail('tbtests', tbTestsEmails, "Missing TB test")} name="TB tests" arr={missingTbTestsArr} />
-              <CardTemplate messageFunction={() => sendEmail('covidtests', covidTestsEmails, "Missing Covid Vaccine")} name="Covid Tests" arr={missingCovidTestArr} />
-              <CardTemplate messageFunction={() => sendEmail('backgroundchecks', backgroundTestsEmails, "Missing Background Check")} name="Background Checks" arr={missingBackgroundChecksArr} />
+              <CardTemplate messageFunction={() => sendEmail('applications', applicationEmails, "Missing Application")} name="Applications" arr={missingApps} />
+              <CardTemplate messageFunction={() => sendEmail('tbtests', tbTestsEmails, "Missing TB test")} name="TB tests" arr={missingTBTests} />
+              <CardTemplate messageFunction={() => sendEmail('covidtests', covidTestsEmails, "Missing Covid Vaccine")} name="Covid Vaccines" arr={missingCovidTests} />
+              <CardTemplate messageFunction={() => sendEmail('backgroundchecks', backgroundTestsEmails, "Missing Background Check")} name="Background Checks" arr={missingBackgroundChecks} />
               <ToastContainer style={{ fontSize: '1.4rem' }} position="top-center" />
             </div>
           </FadeIn>
