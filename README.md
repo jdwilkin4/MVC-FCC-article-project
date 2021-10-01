@@ -1,4 +1,37 @@
-# Getting Started with Create React App
+# MVC Architecture – What is a Model View Controller Framework?
+
+
+<img width="963" alt="Screen Shot 2021-10-01 at 10 43 59 AM" src="https://user-images.githubusercontent.com/67210629/135664337-4f758e65-7b0b-4ed6-bcae-04ee2c857121.png">
+
+### This project was created as a demo application to talk about the MVC Architecture.
+
+### Here is the freeCodeCamp article:
+https://www.freecodecamp.org/news/mvc-architecture-what-is-a-model-view-controller-framework/
+
+### This is an app where a fictional office manager can see the recently hired coaches at their school.
+
+<img width="1210" alt="Screen Shot 2021-10-01 at 10 45 18 AM" src="https://user-images.githubusercontent.com/67210629/135664500-a6d57ac4-43c3-4a9e-afa3-aac340b55b86.png">
+
+### The office manager can also check and see which coaches haven't finished their application materials.
+<img width="1252" alt="Screen Shot 2021-10-01 at 10 47 23 AM" src="https://user-images.githubusercontent.com/67210629/135664762-40053c90-b651-48ce-9fe7-d11e6dbd1f68.png">
+
+### The manager can also send reminder emails to our fake coaches.
+
+<img width="538" alt="Screen Shot 2021-10-01 at 10 48 02 AM" src="https://user-images.githubusercontent.com/67210629/135664847-c9874df1-5187-45e7-8578-a9fd75430793.png">
+
+## Tech stack
+This project was build with the MERN(MongoDB, Express, React, Node) stack.
+
+## Other packages
+Nodemon
+Nodemailer
+
+## Backend
+The backend was deployed with Heroku.
+https://github.com/jdwilkin4/mvc-project-backend 
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -39,32 +72,4 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
