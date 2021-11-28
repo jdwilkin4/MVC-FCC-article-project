@@ -5,7 +5,7 @@
 
 ### This project was created as a demo application to talk about the MVC Architecture.
 
-### Here is the freeCodeCamp article:
+### freeCodeCamp article:
 https://www.freecodecamp.org/news/mvc-architecture-what-is-a-model-view-controller-framework/
 
 ### This is an app where a fictional office manager can see the recently hired coaches at their school.
